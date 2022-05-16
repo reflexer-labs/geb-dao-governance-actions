@@ -1,3 +1,6 @@
 [submodule "lib/ds-test"]
 	path = lib/ds-test
 	url = https://github.com/dapphub/ds-test
+[submodule "lib/ds-vote-quorum"]
+	path = lib/ds-vote-quorum
+	url = https://github.com/reflexer-labs/ds-vote-quorum.git

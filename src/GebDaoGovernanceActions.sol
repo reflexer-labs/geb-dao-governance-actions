@@ -66,6 +66,4 @@ contract GebDaoGovernanceActions {
     function changePriceSource(address target, address source) public {
         Setter(target).changePriceSource(source);
     }    
-
-
 }

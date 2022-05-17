@@ -10,7 +10,7 @@ To build a proposal to change the OSM price source call the ```propose()``` func
 
 Targets should have the address of the governance actions address.
 
-For calldata computation we are using Seth, on the unit tests of this repo we also logged the calldatas as an example. Other tools such as Ethers.js, Web3.js, Web3.py may be used to compute the calldata.
+For calldata computation we are using Seth, on the unit tests of this repo we also logged the calldatas as an example. Other tools such as Ethers.js, Web3.js, Web3.py may be used to compute the calldata. For a point and click solution use [hashex](https://abi.hashex.org/).
 
 ```
 seth calldata "changePriceSource(address,address)" 0xD4A0E3EC2A937E7CCa4A192756a8439A8BF4bA91 0x0000000000000000000000000000000000000abc

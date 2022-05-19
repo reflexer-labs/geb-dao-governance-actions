@@ -13,6 +13,7 @@ abstract contract Setter {
     function transferERC20(address, address, uint256) external virtual;
     function restartRedemptionRate() virtual public;    
     function changePriceSource(address) virtual public;    
+    function updateResult(uint256) virtual public;    
 }
 
 // @notice Contract to be used by GEB DAO allowing changes in all RAI parameters that were not ungoerned
@@ -66,4 +67,8 @@ contract GebDaoGovernanceActions {
     function changePriceSource(address target, address source) public {
         Setter(target).changePriceSource(source);
     }    
+
+    function updateResult(address target, uint256 result) public {
+        Setter(target).updateResult(result);
+    }
 }

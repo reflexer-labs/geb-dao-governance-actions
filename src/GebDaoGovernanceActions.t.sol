@@ -422,6 +422,29 @@ contract GebDaoGovernanceActionsTest is DSTest {
                 )
             )
         );
-    }                    
+    }         
 
+    function test_update_result() public {
+        bytes memory proposalCalldata = abi.encodeWithSelector(
+            bytes4(keccak256("updateResult(address,uint256)")),
+            address(target),
+            12345
+        );
+
+        emit log_named_bytes("updateResult(address target, uint256 result):", proposalCalldata);
+        _passProposal(
+            govActions,
+            proposalCalldata
+        );
+
+        assertEq(
+            keccak256(target.lastReceivedCall()),
+            keccak256(
+                abi.encodeWithSelector(
+                    bytes4(keccak256("updateResult(uint256)")),
+                    12345
+                )
+            )
+        );
+    }                      
 }

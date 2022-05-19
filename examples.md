@@ -8,9 +8,9 @@ To build a proposal to change the OSM price source call the ```propose()``` func
 - ```calldatas```: ["0x5622b051000000000000000000000000d4a0e3ec2a937e7cca4a192756a8439a8bf4ba910000000000000000000000000000000000000000000000000000000000000abc"]
 - ```description```: "Change the OSM Price Source" 
 
-Targets should have the address of the governance actions address.
+Targets should have the address of the governance actions address. (if inputing directly on Etherscan use quotes on the addresses)
 
-For calldata computation we are using Seth, on the unit tests of this repo we also logged the calldatas as an example. Other tools such as Ethers.js, Web3.js, Web3.py may be used to compute the calldata. For a point and click solution use [hashex](https://abi.hashex.org/).
+For calldata computation we are using Seth, on the unit tests of this repo we also logged the calldatas as an example. Other tools such as Ethers.js, Web3.js, Web3.py may be used to compute the calldata. For a point and click solution use [hashex](https://abi.hashex.org/). (on Etherscan do not use quotes for bytes)
 
 ```
 seth calldata "changePriceSource(address,address)" 0xD4A0E3EC2A937E7CCa4A192756a8439A8BF4bA91 0x0000000000000000000000000000000000000abc
@@ -88,3 +88,20 @@ seth calldata "disconnectSAFESaviour(address,address)" 0x93336ba5b2eb5C86CabFaFf
 ```
 
 Here Seth is computing the call to both connectSAFESaviour and disconnectSAFESaviour with the LiquidationEngine overlay as target, and the saviour address as the last one.
+
+### Set a DSValue oracle result
+To build a proposal to change the result in a DSValue oracle call the ```propose()``` function with the following params:
+- ```targets```: [GOV_ACTIONS_CONTRACT_ADDRESS] 
+- ```values```: [] (empty) 
+- ```signatures```: [] (empty)
+- ```calldatas```: ["0xf4922c1a0000000000000000000000000000000000000000000000000000000000000abc000000000000000000000000000000000000000000000000000000000000007b"]
+- ```description```: "Change rate result on DSValue to 123" 
+
+Targets should have the address of the governance actions address.
+
+For calldata computation we are using Seth, on the unit tests of this repo we also logged the calldatas as an example. Other tools such as Ethers.js, Web3.js, Web3.py may be used to compute the calldata.
+
+```
+seth calldata "updateResult(address,uint256)" 0x0000000000000000000000000000000000000abc 123 0xf4922c1a0000000000000000000000000000000000000000000000000000000000000abc000000000000000000000000000000000000000000000000000000000000007b
+
+```

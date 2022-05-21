@@ -2,11 +2,11 @@
 
 ### Change the OSM price source
 To build a proposal to change the OSM price source call the ```propose()``` function with the following params:
-- ```targets```: [GOV_ACTIONS_CONTRACT_ADDRESS] 
-- ```values```: [] (empty) 
+- ```targets```: [GOV_ACTIONS_CONTRACT_ADDRESS]
+- ```values```: [] (empty)
 - ```signatures```: [] (empty)
 - ```calldatas```: ["0x5622b051000000000000000000000000d4a0e3ec2a937e7cca4a192756a8439a8bf4ba910000000000000000000000000000000000000000000000000000000000000abc"]
-- ```description```: "Change the OSM Price Source" 
+- ```description```: "Change the OSM Price Source"
 
 Targets should have the address of the governance actions address. (if inputing directly on Etherscan use quotes on the addresses)
 
@@ -14,14 +14,14 @@ For calldata computation there is a Node script on the computeCalls folder that 
 
 Using the included script
 ```
-node compute "changePriceSource(address,address)" 0xD4A0E3EC2A937E7CCa4A192756a8439A8BF4bA91 0x0000000000000000000000000000000000000abc
+node calldata "changePriceSource(address,address)" 0xD4A0E3EC2A937E7CCa4A192756a8439A8BF4bA91 0x0000000000000000000000000000000000000abc
 0x5622b051000000000000000000000000d4a0e3ec2a937e7cca4a192756a8439a8bf4ba910000000000000000000000000000000000000000000000000000000000000abc
 ```
 
 Using Seth:
 ```
 
-node compute "changePriceSource(address,address)" 0xD4A0E3EC2A937E7CCa4A192756a8439A8BF4bA91 0x0000000000000000000000000000000000000abc
+node calldata "changePriceSource(address,address)" 0xD4A0E3EC2A937E7CCa4A192756a8439A8BF4bA91 0x0000000000000000000000000000000000000abc
 0x5622b051000000000000000000000000d4a0e3ec2a937e7cca4a192756a8439a8bf4ba910000000000000000000000000000000000000000000000000000000000000abc
 ```
 
@@ -29,11 +29,11 @@ Here the included script is computing the call to changePriceSource with the ETH
 
 ### Change ```tokensToAuction``` and ```systemCoinsToRequest``` in the lender of first resort
 To build a proposal to change the ``tokensToAuction``` and ```systemCoinsToRequest``` in the lender of first resort call the ```propose()``` function with the following params:
-- ```targets```: [GOV_ACTIONS_CONTRACT_ADDRESS, GOV_ACTIONS_CONTRACT_ADDRESS] 
-- ```values```: [] (empty) 
+- ```targets```: [GOV_ACTIONS_CONTRACT_ADDRESS, GOV_ACTIONS_CONTRACT_ADDRESS]
+- ```values```: [] (empty)
 - ```signatures```: [] (empty)
 - ```calldatas```: ["0xecf987ef000000000000000000000000e3c80d0e60027bbaf403faa8a9cf6775c4d416f673797374656d436f696e73546f526571756573740000000000000000000000000000000000000000000000000000000000000000000000000000000000002710", "0xecf987ef000000000000000000000000e3c80d0e60027bbaf403faa8a9cf6775c4d416f6746f6b656e73546f41756374696f6e000000000000000000000000000000000000000000000000000000000000000000000000000000000000002d79883d2000"]
-- ```description```: "Change systemCoinsToRequest to 100, tokensToAuction to 5" 
+- ```description```: "Change systemCoinsToRequest to 100, tokensToAuction to 5"
 
 Targets should have the address of the governance actions address.
 
@@ -54,18 +54,18 @@ Here Seth is computing the call to modifyParameters with the Staking overlay as 
 
 ### Change the oracle in Rate Setter
 To build a proposal to change the oracle in rate setter call the ```propose()``` function with the following params:
-- ```targets```: [GOV_ACTIONS_CONTRACT_ADDRESS] 
-- ```values```: [] (empty) 
+- ```targets```: [GOV_ACTIONS_CONTRACT_ADDRESS]
+- ```values```: [] (empty)
 - ```signatures```: [] (empty)
 - ```calldatas```: ["0xecf987ef000000000000000000000000e3c80d0e60027bbaf403faa8a9cf6775c4d416f673797374656d436f696e73546f526571756573740000000000000000000000000000000000000000000000000000000000000000000000000000000000002710"]
-- ```description```: "Change rate setter oracle to 0x0000000000000000000000000000000000000abc" 
+- ```description```: "Change rate setter oracle to 0x0000000000000000000000000000000000000abc"
 
 Targets should have the address of the governance actions address.
 
 For calldata computation we are using Seth, on the unit tests of this repo we also logged the calldatas as an example. Other tools such as Ethers.js, Web3.js, Web3.py may be used to compute the calldata.
 
 ```
-node compute "modifyParameters(address,bytes32,address)" 0xE3c80D0e60027BbAf403fAA8A9CF6775C4D416F6 0x6f72636c00000000000000000000000000000000000000000000000000000000 0x0000000000000000000000000000000000000abc
+node calldata "modifyParameters(address,bytes32,address)" 0xE3c80D0e60027BbAf403fAA8A9CF6775C4D416F6 0x6f72636c00000000000000000000000000000000000000000000000000000000 0x0000000000000000000000000000000000000abc
 0x8eb0ee60000000000000000000000000e3c80d0e60027bbaf403faa8a9cf6775c4d416f66f72636c000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000abc
 
 ```
@@ -77,21 +77,21 @@ Here the included script is computing the call to modifyParameters with the Rate
 
 ### Connect and disconnect saviours from LiquidationEngine
 To build a proposal to connect and disconnect a safe savior in Liquidation Engine call ```propose()``` with the following parameters:
-- ```targets```: [GOV_ACTIONS_CONTRACT_ADDRESS, GOV_ACTIONS_CONTRACT_ADDRESS] 
-- ```values```: [] (empty) 
+- ```targets```: [GOV_ACTIONS_CONTRACT_ADDRESS, GOV_ACTIONS_CONTRACT_ADDRESS]
+- ```values```: [] (empty)
 - ```signatures```: [] (empty)
 - ```calldatas```: ["0xc9cf6de700000000000000000000000093336ba5b2eb5c86cabfaff0da918624107369600000000000000000000000000000000000000000000000000000000000000abc", "0x96074fd200000000000000000000000093336ba5b2eb5c86cabfaff0da918624107369600000000000000000000000000000000000000000000000000000000000000def"]
-- ```description```: "Connect saviour 0x0000000000000000000000000000000000000abc, disconnect saviour 0x0000000000000000000000000000000000000def" 
+- ```description```: "Connect saviour 0x0000000000000000000000000000000000000abc, disconnect saviour 0x0000000000000000000000000000000000000def"
 
 Targets should have the address of the governance actions address.
 
 For calldata computation we are using Seth, on the unit tests of this repo we also logged the calldatas as an example. Other tools such as Ethers.js, Web3.js, Web3.py may be used to compute the calldata.
 
 ```
-node compute "connectSAFESaviour(address,address)" 0x93336ba5b2eb5C86CabFaFf0dA91862410736960 0x0000000000000000000000000000000000000abc 
+node calldata "connectSAFESaviour(address,address)" 0x93336ba5b2eb5C86CabFaFf0dA91862410736960 0x0000000000000000000000000000000000000abc
 0xc9cf6de700000000000000000000000093336ba5b2eb5c86cabfaff0da918624107369600000000000000000000000000000000000000000000000000000000000000abc
 
-node compute "disconnectSAFESaviour(address,address)" 0x93336ba5b2eb5C86CabFaFf0dA91862410736960 0x0000000000000000000000000000000000000def 
+node calldata "disconnectSAFESaviour(address,address)" 0x93336ba5b2eb5C86CabFaFf0dA91862410736960 0x0000000000000000000000000000000000000def
 0x96074fd200000000000000000000000093336ba5b2eb5c86cabfaff0da918624107369600000000000000000000000000000000000000000000000000000000000000def
 ```
 
@@ -99,17 +99,17 @@ Here the included script is computing the call to both connectSAFESaviour and di
 
 ### Set a DSValue oracle result
 To build a proposal to change the result in a DSValue oracle call the ```propose()``` function with the following params:
-- ```targets```: [GOV_ACTIONS_CONTRACT_ADDRESS] 
-- ```values```: [] (empty) 
+- ```targets```: [GOV_ACTIONS_CONTRACT_ADDRESS]
+- ```values```: [] (empty)
 - ```signatures```: [] (empty)
 - ```calldatas```: ["0xf4922c1a0000000000000000000000000000000000000000000000000000000000000abc000000000000000000000000000000000000000000000000000000000000007b"]
-- ```description```: "Change rate result on DSValue to 123" 
+- ```description```: "Change rate result on DSValue to 123"
 
 Targets should have the address of the governance actions address.
 
 For calldata computation we are using Seth, on the unit tests of this repo we also logged the calldatas as an example. Other tools such as Ethers.js, Web3.js, Web3.py may be used to compute the calldata.
 
 ```
-node compute "updateResult(address,uint256)" 0x0000000000000000000000000000000000000abc 123 0xf4922c1a0000000000000000000000000000000000000000000000000000000000000abc000000000000000000000000000000000000000000000000000000000000007b
+node calldata "updateResult(address,uint256)" 0x0000000000000000000000000000000000000abc 123 0xf4922c1a0000000000000000000000000000000000000000000000000000000000000abc000000000000000000000000000000000000000000000000000000000000007b
 
 ```

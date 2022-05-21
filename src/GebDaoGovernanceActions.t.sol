@@ -46,7 +46,7 @@ contract GebDaoGovernanceActionsTest is DSTest {
     uint256 constant votingDelay = 10000;
 
     // pause
-    uint256 delay = 1 days;    
+    uint256 delay = 1 days;
 
     function setUp() public {
         hevm = Hevm(0x7109709ECfa91a80626fF3989D68f67F5b1DD12D);
@@ -69,17 +69,17 @@ contract GebDaoGovernanceActionsTest is DSTest {
             votingDelay,
             quorum,
             proposalThreshold
-        );        
+        );
 
         roles.setAuthority(DSAuthority(roles));
         roles.setRootUser(address(governor), true);
-        roles.setOwner(address(pause.proxy()));    
+        roles.setOwner(address(pause.proxy()));
 
         prot.delegate(address(this));
 
         govActions = address(new GebDaoGovernanceActions());
     }
- 
+
 
     function _passProposal(address _target, bytes memory data) internal {
         hevm.roll(block.number + 1);
@@ -87,7 +87,7 @@ contract GebDaoGovernanceActionsTest is DSTest {
         address[] memory targets = new address[](1);
         targets[0] = _target;
         bytes[] memory calldatas = new bytes[](1);
-        calldatas[0] = data;        
+        calldatas[0] = data;
 
         uint proposalId = governor.propose(targets, new uint[](1), new string[](1), calldatas, "test-proposal");
 
@@ -160,7 +160,7 @@ contract GebDaoGovernanceActionsTest is DSTest {
                 )
             )
         );
-    }    
+    }
 
     function test_modify_parameters3() public {
         bytes memory proposalCalldata = abi.encodeWithSelector(
@@ -186,7 +186,7 @@ contract GebDaoGovernanceActionsTest is DSTest {
                 )
             )
         );
-    }        
+    }
 
     function test_modify_parameters4() public {
         bytes memory proposalCalldata = abi.encodeWithSelector(
@@ -214,7 +214,7 @@ contract GebDaoGovernanceActionsTest is DSTest {
                 )
             )
         );
-    }    
+    }
 
     function test_modify_parameters5() public {
         bytes memory proposalCalldata = abi.encodeWithSelector(
@@ -242,7 +242,7 @@ contract GebDaoGovernanceActionsTest is DSTest {
                 )
             )
         );
-    }      
+    }
 
     function test_modify_parameters6() public {
         bytes memory proposalCalldata = abi.encodeWithSelector(
@@ -270,7 +270,7 @@ contract GebDaoGovernanceActionsTest is DSTest {
                 )
             )
         );
-    }      
+    }
 
     function test_modify_parameters7() public {
         bytes memory proposalCalldata = abi.encodeWithSelector(
@@ -300,7 +300,7 @@ contract GebDaoGovernanceActionsTest is DSTest {
                 )
             )
         );
-    }      
+    }
 
     function test_connect_safe_saviour() public {
         bytes memory proposalCalldata = abi.encodeWithSelector(
@@ -324,7 +324,7 @@ contract GebDaoGovernanceActionsTest is DSTest {
                 )
             )
         );
-    }    
+    }
 
     function test_disconnect_safe_saviour() public {
         bytes memory proposalCalldata = abi.encodeWithSelector(
@@ -348,7 +348,7 @@ contract GebDaoGovernanceActionsTest is DSTest {
                 )
             )
         );
-    }       
+    }
 
     function test_transfer_erc20() public {
         bytes memory proposalCalldata = abi.encodeWithSelector(
@@ -376,7 +376,7 @@ contract GebDaoGovernanceActionsTest is DSTest {
                 )
             )
         );
-    }      
+    }
 
     function test_restart_redemption_rate() public {
         bytes memory proposalCalldata = abi.encodeWithSelector(
@@ -398,7 +398,7 @@ contract GebDaoGovernanceActionsTest is DSTest {
                 )
             )
         );
-    }  
+    }
 
     function test_change_price_source() public {
         bytes memory proposalCalldata = abi.encodeWithSelector(
@@ -422,16 +422,19 @@ contract GebDaoGovernanceActionsTest is DSTest {
                 )
             )
         );
-    }         
+    }
 
-    function test_update_result() public {
+    function test_add_funding_receiver_fixed() public {
         bytes memory proposalCalldata = abi.encodeWithSelector(
-            bytes4(keccak256("updateResult(address,uint256)")),
+            bytes4(keccak256("addFundingReceiver(address,address,bytes4,uint256,uint256,uint256)")),
             address(target),
+            address(0xfab),
+            bytes4("a"),
+            123,
+            1234,
             12345
         );
 
-        emit log_named_bytes("updateResult(address target, uint256 result):", proposalCalldata);
         _passProposal(
             govActions,
             proposalCalldata
@@ -441,10 +444,175 @@ contract GebDaoGovernanceActionsTest is DSTest {
             keccak256(target.lastReceivedCall()),
             keccak256(
                 abi.encodeWithSelector(
-                    bytes4(keccak256("updateResult(uint256)")),
+                    bytes4(keccak256("addFundingReceiver(address,bytes4,uint256,uint256,uint256)")),
+                    address(0xfab),
+                    bytes4("a"),
+                    123,
+                    1234,
                     12345
                 )
             )
         );
-    }                      
+    }
+
+    function test_add_funding_receiver_minmax() public {
+        bytes memory proposalCalldata = abi.encodeWithSelector(
+            bytes4(keccak256("addFundingReceiver(address,address,bytes4,uint256,uint256,uint256,uint256)")),
+            address(target),
+            address(0xfab),
+            bytes4("a"),
+            123,
+            1234,
+            12345,
+            123456
+        );
+
+        _passProposal(
+            govActions,
+            proposalCalldata
+        );
+
+        assertEq(
+            keccak256(target.lastReceivedCall()),
+            keccak256(
+                abi.encodeWithSelector(
+                    bytes4(keccak256("addFundingReceiver(address,bytes4,uint256,uint256,uint256,uint256)")),
+                    address(0xfab),
+                    bytes4("a"),
+                    123,
+                    1234,
+                    12345,
+                    123456
+                )
+            )
+        );
+    }
+
+    function test_remove_funding_receiver() public {
+        bytes memory proposalCalldata = abi.encodeWithSelector(
+            bytes4(keccak256("removeFundingReceiver(address,address,bytes4)")),
+            address(target),
+            address(0xfab),
+            bytes4("a")
+        );
+
+        _passProposal(
+            govActions,
+            proposalCalldata
+        );
+
+        assertEq(
+            keccak256(target.lastReceivedCall()),
+            keccak256(
+                abi.encodeWithSelector(
+                    bytes4(keccak256("removeFundingReceiver(address,bytes4)")),
+                    address(0xfab),
+                    bytes4("a")
+                )
+            )
+        );
+    }
+
+    function test_add_reward_adjuster() public {
+        bytes memory proposalCalldata = abi.encodeWithSelector(
+            bytes4(keccak256("addRewardAdjuster(address,address)")),
+            address(target),
+            address(0xfab)
+        );
+
+        emit log_named_bytes("addRewardAdjuster(address target, address adjuster):", proposalCalldata);
+        _passProposal(
+            govActions,
+            proposalCalldata
+        );
+
+        assertEq(
+            keccak256(target.lastReceivedCall()),
+            keccak256(
+                abi.encodeWithSelector(
+                    bytes4(keccak256("addRewardAdjuster(address)")),
+                    address(0xfab)
+                )
+            )
+        );
+    }
+
+    function test_remove_reward_adjuster() public {
+        bytes memory proposalCalldata = abi.encodeWithSelector(
+            bytes4(keccak256("removeRewardAdjuster(address,address)")),
+            address(target),
+            address(0xfab)
+        );
+
+        emit log_named_bytes("removeRewardAdjuster(address target, address adjuster):", proposalCalldata);
+        _passProposal(
+            govActions,
+            proposalCalldata
+        );
+
+        assertEq(
+            keccak256(target.lastReceivedCall()),
+            keccak256(
+                abi.encodeWithSelector(
+                    bytes4(keccak256("removeRewardAdjuster(address)")),
+                    address(0xfab)
+                )
+            )
+        );
+    }
+
+    function test_add_funded_function() public {
+        bytes memory proposalCalldata = abi.encodeWithSelector(
+            bytes4(keccak256("addFundedFunction(address,address,bytes4,uint256)")),
+            address(target),
+            address(0xfab),
+            bytes4("abc"),
+            35
+        );
+
+        emit log_named_bytes("addFundedFunction(address target, address targetContract, bytes4 targetFunction, uint256 latestExpectedCalls):", proposalCalldata);
+        _passProposal(
+            govActions,
+            proposalCalldata
+        );
+
+        assertEq(
+            keccak256(target.lastReceivedCall()),
+            keccak256(
+                abi.encodeWithSelector(
+                    bytes4(keccak256("addFundedFunction(address,bytes4,uint256)")),
+                    address(0xfab),
+                    bytes4("abc"),
+                    35
+                )
+            )
+        );
+    }
+
+    function test_remove_funded_function() public {
+        bytes memory proposalCalldata = abi.encodeWithSelector(
+            bytes4(keccak256("removeFundedFunction(address,address,bytes4)")),
+            address(target),
+            address(0xfab),
+            bytes4("abc")
+        );
+
+        emit log_named_bytes("removeFundedFunction(address target, address targetContract, bytes4 targetFunction):", proposalCalldata);
+        _passProposal(
+            govActions,
+            proposalCalldata
+        );
+
+        assertEq(
+            keccak256(target.lastReceivedCall()),
+            keccak256(
+                abi.encodeWithSelector(
+                    bytes4(keccak256("removeFundedFunction(address,bytes4)")),
+                    address(0xfab),
+                    bytes4("abc")
+                )
+            )
+        );
+    }
+
 }

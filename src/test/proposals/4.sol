@@ -22,7 +22,7 @@ contract Proposal4Test is SimulateProposalBase {
             bytes4(keccak256("mint(address)")),
             address(minter)
         );
-        // _passProposal(targets, calldatas); // reverting unauthed
+        _passProposal(targets, calldatas); // reverting unauthed
 
         _logData(targets, calldatas);
     }

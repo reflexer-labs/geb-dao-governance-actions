@@ -6,7 +6,7 @@ import "ds-token/delegate.sol";
 import "ds-vote-quorum/GovernorBravo.sol";
 import {DSRoles} from "ds-roles/roles.sol";
 import {DSPause} from "ds-vote-quorum/test/mock/DSPauseMock.sol";
-import "./GebDaoGovernanceActions.sol";
+import "../GebDaoGovernanceActions.sol";
 
 abstract contract Hevm {
     function warp(uint) virtual public;

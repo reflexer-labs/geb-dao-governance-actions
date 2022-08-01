@@ -3,21 +3,11 @@ pragma experimental ABIEncoderV2;
 
 import "ds-test/test.sol";
 import "ds-token/delegate.sol";
-import "ds-vote-quorum/GovernorBravo.sol";
+import {GovernorBravo} from "ds-vote-quorum/GovernorBravo.sol";
 import {DSRoles} from "ds-roles/roles.sol";
 import {DSPause} from "ds-vote-quorum/test/mock/DSPauseMock.sol";
 import "../GebDaoGovernanceActions.sol";
-
-abstract contract Hevm {
-    // Set block.timestamp (newTimestamp)
-    function warp(uint256) external virtual;
-    // Set block.height (newHeight)
-    function roll(uint256) external virtual;
-    // Loads a storage slot from an address (who, slot)
-    function load(address,bytes32) external virtual returns (bytes32);
-    // Stores a value to an address' storage slot, (who, slot, value)
-    function store(address,bytes32,bytes32) external virtual;
-}
+import "./Interfaces.sol";
 
 contract SimulateProposalBase is DSTest {
     Hevm hevm;

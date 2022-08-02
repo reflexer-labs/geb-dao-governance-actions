@@ -4,10 +4,6 @@ pragma experimental ABIEncoderV2;
 import "../SimulateProposalBase.t.sol";
 import "../../GebDaoGovernanceActions.sol";
 
-abstract contract TokenLike {
-    function balanceOf(address) public virtual view returns (uint256);
-}
-
 abstract contract StreamVaultLike {
     function createStream(
         address recipient,

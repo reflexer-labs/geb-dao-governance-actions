@@ -7,8 +7,6 @@ import "../../GebDaoGovernanceActions.sol";
 
 contract Proposal7Test is Proposal6Test {
     function test_proposal_7() public onlyFork {
-        if(address(governor.timelock()) != GEB_PAUSE) // main protocol pause
-            test_proposal_6(); // prerequisite proposal
 
         DSValueLike gasOracle = DSValueLike(0x6a8757d4eC5630EbF86A5DBBe2e65423195a47f4); // GEB_GAS_PRICE_ORACLE_FLOOR_ADJUSTER
 

@@ -19,7 +19,7 @@ contract GovernorAdminActions {
 contract Proposal6Test is SimulateProposalBase {
     address constant GEB_PAUSE = 0x2cDE6A1147B0EE61726b86d83Fd548401B1162c7;
     function test_proposal_6() public onlyFork {
-        address governorAdminActions = address(new GovernorAdminActions());
+        address governorAdminActions = 0xAfEB434f8ABbDa7B51fc4c04c0F4545243CB5f3B;
 
         assertEq(address(governor.timelock()), address(pause)); // GEB_UNGOVERNOR_PAUSE
 

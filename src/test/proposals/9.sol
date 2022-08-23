@@ -17,8 +17,8 @@ contract Proposal9Test is SimulateProposalBase {
         ];
 
         uint[2] memory amounts = [
-            uint(285 ether),
-            143 ether
+            uint(290 ether),
+            146 ether
         ];
 
 

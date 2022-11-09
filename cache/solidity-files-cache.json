@@ -22,7 +22,8 @@
             "runs": 200
           },
           "metadata": {
-            "bytecodeHash": "ipfs"
+            "bytecodeHash": "ipfs",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -67,7 +68,8 @@
             "runs": 200
           },
           "metadata": {
-            "bytecodeHash": "ipfs"
+            "bytecodeHash": "ipfs",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -108,7 +110,8 @@
             "runs": 200
           },
           "metadata": {
-            "bytecodeHash": "ipfs"
+            "bytecodeHash": "ipfs",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -147,7 +150,8 @@
             "runs": 200
           },
           "metadata": {
-            "bytecodeHash": "ipfs"
+            "bytecodeHash": "ipfs",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -186,7 +190,8 @@
             "runs": 200
           },
           "metadata": {
-            "bytecodeHash": "ipfs"
+            "bytecodeHash": "ipfs",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -228,7 +233,8 @@
             "runs": 200
           },
           "metadata": {
-            "bytecodeHash": "ipfs"
+            "bytecodeHash": "ipfs",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -267,7 +273,8 @@
             "runs": 200
           },
           "metadata": {
-            "bytecodeHash": "ipfs"
+            "bytecodeHash": "ipfs",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -309,7 +316,8 @@
             "runs": 200
           },
           "metadata": {
-            "bytecodeHash": "ipfs"
+            "bytecodeHash": "ipfs",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -351,7 +359,8 @@
             "runs": 200
           },
           "metadata": {
-            "bytecodeHash": "ipfs"
+            "bytecodeHash": "ipfs",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -397,7 +406,8 @@
             "runs": 200
           },
           "metadata": {
-            "bytecodeHash": "ipfs"
+            "bytecodeHash": "ipfs",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -451,7 +461,8 @@
             "runs": 200
           },
           "metadata": {
-            "bytecodeHash": "ipfs"
+            "bytecodeHash": "ipfs",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -488,6 +499,46 @@
         }
       }
     },
+    "script/Propose.s.sol": {
+      "lastModificationDate": 1663634451495,
+      "contentHash": "d41d8cd98f00b204e9800998ecf8427e",
+      "sourceName": "script/Propose.s.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "metadata": {
+            "bytecodeHash": "ipfs",
+            "appendCBOR": true
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "london",
+          "libraries": {}
+        }
+      },
+      "imports": [],
+      "versionRequirement": null,
+      "artifacts": {
+        "Propose.s": {
+          "0.6.7+commit.b8d736ae.Darwin.appleclang": "Propose.s.sol/Propose.s.json"
+        }
+      }
+    },
     "src/GebDaoGovernanceActions.sol": {
       "lastModificationDate": 1656983155776,
       "contentHash": "11cb5b20fec0b3762744617bfd4d56e6",
@@ -499,7 +550,8 @@
             "runs": 200
           },
           "metadata": {
-            "bytecodeHash": "ipfs"
+            "bytecodeHash": "ipfs",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -541,7 +593,8 @@
             "runs": 200
           },
           "metadata": {
-            "bytecodeHash": "ipfs"
+            "bytecodeHash": "ipfs",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -599,7 +652,8 @@
             "runs": 200
           },
           "metadata": {
-            "bytecodeHash": "ipfs"
+            "bytecodeHash": "ipfs",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -773,7 +827,8 @@
             "runs": 200
           },
           "metadata": {
-            "bytecodeHash": "ipfs"
+            "bytecodeHash": "ipfs",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -826,7 +881,8 @@
             "runs": 200
           },
           "metadata": {
-            "bytecodeHash": "ipfs"
+            "bytecodeHash": "ipfs",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -869,6 +925,171 @@
         }
       }
     },
+    "src/test/proposals/12.sol": {
+      "lastModificationDate": 1663967475177,
+      "contentHash": "88fc0c6b89bd6e3173fe5d4521ab2fd8",
+      "sourceName": "src/test/proposals/12.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "metadata": {
+            "bytecodeHash": "ipfs",
+            "appendCBOR": true
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "london",
+          "libraries": {}
+        }
+      },
+      "imports": [
+        "lib/ds-vote-quorum/lib/ds-roles/lib/ds-auth/src/auth.sol",
+        "lib/ds-vote-quorum/lib/ds-roles/src/roles.sol",
+        "lib/ds-vote-quorum/lib/ds-thing/lib/ds-note/src/note.sol",
+        "lib/ds-vote-quorum/lib/ds-token/lib/ds-math/src/math.sol",
+        "lib/ds-vote-quorum/lib/ds-token/lib/ds-stop/src/stop.sol",
+        "lib/ds-vote-quorum/lib/ds-token/lib/ds-test/src/test.sol",
+        "lib/ds-vote-quorum/lib/ds-token/lib/erc20/src/erc20.sol",
+        "lib/ds-vote-quorum/lib/ds-token/src/base.sol",
+        "lib/ds-vote-quorum/lib/ds-token/src/delegate.sol",
+        "lib/ds-vote-quorum/src/GovernorBravo.sol",
+        "lib/ds-vote-quorum/src/test/mock/DSPauseMock.sol",
+        "src/GebDaoGovernanceActions.sol",
+        "src/test/Interfaces.sol",
+        "src/test/SimulateProposalBase.t.sol"
+      ],
+      "versionRequirement": "^0.6.7",
+      "artifacts": {
+        "Proposal12Test": {
+          "0.6.7+commit.b8d736ae.Darwin.appleclang": "12.sol/Proposal12Test.json"
+        }
+      }
+    },
+    "src/test/proposals/13.sol": {
+      "lastModificationDate": 1663967791879,
+      "contentHash": "9d062b72e28d13857a3ec1084e0a74c2",
+      "sourceName": "src/test/proposals/13.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "metadata": {
+            "bytecodeHash": "ipfs",
+            "appendCBOR": true
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "london",
+          "libraries": {}
+        }
+      },
+      "imports": [
+        "lib/ds-vote-quorum/lib/ds-roles/lib/ds-auth/src/auth.sol",
+        "lib/ds-vote-quorum/lib/ds-roles/src/roles.sol",
+        "lib/ds-vote-quorum/lib/ds-thing/lib/ds-note/src/note.sol",
+        "lib/ds-vote-quorum/lib/ds-token/lib/ds-math/src/math.sol",
+        "lib/ds-vote-quorum/lib/ds-token/lib/ds-stop/src/stop.sol",
+        "lib/ds-vote-quorum/lib/ds-token/lib/ds-test/src/test.sol",
+        "lib/ds-vote-quorum/lib/ds-token/lib/erc20/src/erc20.sol",
+        "lib/ds-vote-quorum/lib/ds-token/src/base.sol",
+        "lib/ds-vote-quorum/lib/ds-token/src/delegate.sol",
+        "lib/ds-vote-quorum/src/GovernorBravo.sol",
+        "lib/ds-vote-quorum/src/test/mock/DSPauseMock.sol",
+        "src/GebDaoGovernanceActions.sol",
+        "src/test/Interfaces.sol",
+        "src/test/SimulateProposalBase.t.sol"
+      ],
+      "versionRequirement": "^0.6.7",
+      "artifacts": {
+        "Proposal13Test": {
+          "0.6.7+commit.b8d736ae.Darwin.appleclang": "13.sol/Proposal13Test.json"
+        }
+      }
+    },
+    "src/test/proposals/15.sol": {
+      "lastModificationDate": 1666294433685,
+      "contentHash": "15548613806044bd19e856c65cbc1fed",
+      "sourceName": "src/test/proposals/15.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "metadata": {
+            "bytecodeHash": "ipfs",
+            "appendCBOR": true
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "london",
+          "libraries": {}
+        }
+      },
+      "imports": [
+        "lib/ds-vote-quorum/lib/ds-roles/lib/ds-auth/src/auth.sol",
+        "lib/ds-vote-quorum/lib/ds-roles/src/roles.sol",
+        "lib/ds-vote-quorum/lib/ds-thing/lib/ds-note/src/note.sol",
+        "lib/ds-vote-quorum/lib/ds-token/lib/ds-math/src/math.sol",
+        "lib/ds-vote-quorum/lib/ds-token/lib/ds-stop/src/stop.sol",
+        "lib/ds-vote-quorum/lib/ds-token/lib/ds-test/src/test.sol",
+        "lib/ds-vote-quorum/lib/ds-token/lib/erc20/src/erc20.sol",
+        "lib/ds-vote-quorum/lib/ds-token/src/base.sol",
+        "lib/ds-vote-quorum/lib/ds-token/src/delegate.sol",
+        "lib/ds-vote-quorum/src/GovernorBravo.sol",
+        "lib/ds-vote-quorum/src/test/mock/DSPauseMock.sol",
+        "src/GebDaoGovernanceActions.sol",
+        "src/test/Interfaces.sol",
+        "src/test/SimulateProposalBase.t.sol"
+      ],
+      "versionRequirement": "^0.6.7",
+      "artifacts": {
+        "Proposal15Test": {
+          "0.6.7+commit.b8d736ae.Darwin.appleclang": "15.sol/Proposal15Test.json"
+        }
+      }
+    },
     "src/test/proposals/2.sol": {
       "lastModificationDate": 1656646452675,
       "contentHash": "d5613b7264ff0fefd9b458f8ec2a6a80",
@@ -880,7 +1101,8 @@
             "runs": 200
           },
           "metadata": {
-            "bytecodeHash": "ipfs"
+            "bytecodeHash": "ipfs",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -934,7 +1156,8 @@
             "runs": 200
           },
           "metadata": {
-            "bytecodeHash": "ipfs"
+            "bytecodeHash": "ipfs",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -991,7 +1214,8 @@
             "runs": 200
           },
           "metadata": {
-            "bytecodeHash": "ipfs"
+            "bytecodeHash": "ipfs",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -1048,7 +1272,8 @@
             "runs": 200
           },
           "metadata": {
-            "bytecodeHash": "ipfs"
+            "bytecodeHash": "ipfs",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -1111,7 +1336,8 @@
             "runs": 200
           },
           "metadata": {
-            "bytecodeHash": "ipfs"
+            "bytecodeHash": "ipfs",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -1171,7 +1397,8 @@
             "runs": 200
           },
           "metadata": {
-            "bytecodeHash": "ipfs"
+            "bytecodeHash": "ipfs",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -1226,7 +1453,8 @@
             "runs": 200
           },
           "metadata": {
-            "bytecodeHash": "ipfs"
+            "bytecodeHash": "ipfs",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {
@@ -1283,7 +1511,8 @@
             "runs": 200
           },
           "metadata": {
-            "bytecodeHash": "ipfs"
+            "bytecodeHash": "ipfs",
+            "appendCBOR": true
           },
           "outputSelection": {
             "*": {

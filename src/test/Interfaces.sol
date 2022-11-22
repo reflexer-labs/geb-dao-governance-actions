@@ -632,3 +632,27 @@ abstract contract RateSetterLike {
     function lastUpdateTime() public virtual view returns (uint256);
     function updateRate(address) public virtual;
 }
+
+abstract contract StreamVaultLike {
+    function createStream(address, uint256, address, uint256, uint256) external virtual;
+    function cancelStream() external virtual;
+    function sablier() external virtual view returns (address);
+    function streamId() external virtual view returns (uint256);
+}
+
+abstract contract SablierLike {
+    function getStream(uint256)
+        external
+        virtual
+        view
+        returns (
+            address sender,
+            address recipient,
+            uint256 deposit,
+            address token,
+            uint256 startTime,
+            uint256 stopTime,
+            uint256 remainingBalance,
+            uint256 ratePerSecond
+        );
+}

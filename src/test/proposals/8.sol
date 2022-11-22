@@ -3,10 +3,6 @@ pragma experimental ABIEncoderV2;
 
 import "../SimulateProposalBase.t.sol";
 
-abstract contract StreamVaultLike {
-    function streamId() external virtual returns (uint256);
-}
-
 contract Proposal8Test is SimulateProposalBase {
     function test_proposal_8() public onlyFork {
 

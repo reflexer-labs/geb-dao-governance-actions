@@ -81,6 +81,15 @@ contract SimulateProposalBase is DSTest {
         }
     }
 
+    function _passProposal(address target, bytes memory data) internal {
+        address[] memory targets = new address[](1);
+        bytes[] memory calldatas = new bytes[](1);
+
+        targets[0] = target;
+        calldatas[0] = data;
+        _passProposal(targets, calldatas);
+    }
+
     function _logData(address[] memory targets, bytes[] memory calldatas) internal {
         for (uint i; i < targets.length; ++i) {
             emit log_named_address("target", targets[i]);
@@ -88,5 +97,12 @@ contract SimulateProposalBase is DSTest {
         }
     }
 
+    function _logData(address target, bytes memory data) internal {
+        address[] memory targets = new address[](1);
+        bytes[] memory calldatas = new bytes[](1);
 
+        targets[0] = target;
+        calldatas[0] = data;
+        _logData(targets, calldatas);
+    }
 }

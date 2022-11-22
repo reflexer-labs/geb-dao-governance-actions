@@ -4,19 +4,6 @@ pragma experimental ABIEncoderV2;
 import "../SimulateProposalBase.t.sol";
 import "../../GebDaoGovernanceActions.sol";
 
-abstract contract StreamVaultLike {
-    function createStream(
-        address recipient,
-        uint256 deposit,
-        address tokenAddress,
-        uint256 startTime,
-        uint256 stopTime
-    ) external virtual;
-    function cancelStream() external virtual;
-    function sablier() external virtual view returns (address);
-    function streamId() external virtual view returns (uint256);
-}
-
 contract GebDaoStreamVaultRescheduler {
 
     // @notice Cancels current stream and creates a new stream with all tokens available in the streamVault
@@ -31,23 +18,6 @@ contract GebDaoStreamVaultRescheduler {
         // create new stream
         StreamVaultLike(target).createStream(recipient, deposit, tokenAddress, startTime, stopTime);
     }
-}
-
-abstract contract SablierLike {
-    function getStream(uint256 streamId)
-        external
-        virtual
-        view
-        returns (
-            address sender,
-            address recipient,
-            uint256 deposit,
-            address token,
-            uint256 startTime,
-            uint256 stopTime,
-            uint256 remainingBalance,
-            uint256 ratePerSecond
-        );
 }
 
 contract Proposal5Test is SimulateProposalBase {

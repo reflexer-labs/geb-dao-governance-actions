@@ -4,11 +4,6 @@ pragma experimental ABIEncoderV2;
 import "../SimulateProposalBase.t.sol";
 import "../../GebDaoGovernanceActions.sol";
 
-abstract contract StreamVaultLike{
-    function sablier() external virtual view returns (address);
-    function streamId() external virtual view returns (uint256);
-}
-
 contract Proposal3Test is SimulateProposalBase {
     function test_proposal_3() public onlyFork {
         // contracts

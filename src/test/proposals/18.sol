@@ -25,9 +25,9 @@ contract Proposal18 is SimulateProposalBase {
 
         targets[0] = govActions;
         calldatas[0] = abi.encodeWithSignature(
-            "modifyParameters(bytes32,uint256)",
+            "modifyParameters(address,bytes32,uint256)",
             stakingRewardRefiller, // GEB_STAKING_REWARD_REFILLER
-            "refillAmount",
+            bytes32("refillAmount"),
             newRefillAmount
         );
 

@@ -46,8 +46,8 @@ contract Proposal19Test is SimulateProposalBase {
         }
 
         // monthly distro
-        targets[4] = 0xe3Da59FEda69B4D83a10EB383230AFf439dd802b; // system govActions
-        calldatas[4] = abi.encodeWithSignature(
+        targets[6] = 0xe3Da59FEda69B4D83a10EB383230AFf439dd802b; // system govActions
+        calldatas[6] = abi.encodeWithSignature(
             "deployDistributorAndSendTokens(address,bytes32,uint256)",
             0xb5Ed650eF207e051453B68A2138D7cb67CC85E41, // Merkle distributor factory
             0xeb6e78872607e7b8232c871311b7893b5a59b122b7a0b078b020691ba88a6a8d, // Merkle root
@@ -64,6 +64,11 @@ contract Proposal19Test is SimulateProposalBase {
 
         // propose / execute proposal
         _passProposal(targets, calldatas);
+
+        // testing balances
+        for (uint i; i < receivers.length; ++i) {
+            assertEq(prot.balanceOf(receivers[i]), prevBalances[i] + amounts[i]);
+        }
 
         // testing distro
         assertEq(savedNonce + 1, merkleDistFactory.nonce());

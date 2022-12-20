@@ -65,6 +65,11 @@ contract Proposal19Test is SimulateProposalBase {
         // propose / execute proposal
         _passProposal(targets, calldatas);
 
+        // testing balances
+        for (uint i; i < receivers.length; ++i) {
+            assertEq(prot.balanceOf(receivers[i]), prevBalances[i] + amounts[i]);
+        }
+
         // testing distro
         assertEq(savedNonce + 1, merkleDistFactory.nonce());
         MerkleDistributorLike distributor = MerkleDistributorLike(

@@ -14,7 +14,7 @@ contract Proposal21Test is SimulateProposalBase {
         bytes[] memory calldatas = new bytes[](1);
 
         targets[0] = address(governor);
-         calldatas[0] = abi.encodeWithSelector(
+        calldatas[0] = abi.encodeWithSelector(
             bytes4(keccak256("_setVotingDelay(uint256)")),
             newVotingDelay
         );
@@ -23,5 +23,4 @@ contract Proposal21Test is SimulateProposalBase {
 
         assertEq(governor.votingDelay(), newVotingDelay);
     }
-
 }

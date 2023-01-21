@@ -24,6 +24,7 @@ abstract contract Setter {
     function createStream(address, uint256, address, uint256, uint256) external virtual;
     function cancelStream() external virtual;
     function mint() external virtual;
+    function _setVotingDelay(uint) external virtual;
 }
 
 // @notice Contract to be used by GEB DAO allowing changes in all RAI parameters that were not ungoerned
@@ -155,5 +156,9 @@ contract GebDaoGovernanceActions {
 
     function mint(address target) external {
         Setter(target).mint();
+    }
+
+    function _setVotingDelay(address target, uint newVotingDelay) external {
+        Setter(target)._setVotingDelay(newVotingDelay);
     }
 }

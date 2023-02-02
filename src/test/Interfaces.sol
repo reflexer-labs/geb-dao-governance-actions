@@ -502,6 +502,7 @@ abstract contract GebLenderFirstResortRewardsVested {
     function escrowPaused() public virtual returns (uint256);
     function minStakedTokensToKeep() public virtual returns (uint256);
     function bypassAuctions() public virtual returns (uint256);
+    function forcedExit() public virtual returns (uint256);
 }
 
 abstract contract StakedTokenAuctionHouse {

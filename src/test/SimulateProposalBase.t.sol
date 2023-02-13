@@ -15,14 +15,15 @@ contract SimulateProposalBase is DSTest {
     GovernorBravo governor = GovernorBravo(0x7a6BBe7fDd793CC9ab7e0fc33605FCd2D19371E8);
     DSDelegateToken prot = DSDelegateToken(0x6243d8CEA23066d098a15582d81a598b4e8391F4);
     DSPause pause = DSPause(0x7ae91003722F29be9e53B09F469543dEFF8Af17d);
-    address govActions = 0xC4E0060A723a927cDfbface7616CC3B0cb4eF938;
+    SAFEEngineLike safeEngine = SAFEEngineLike(0xCC88a9d330da1133Df3A7bD823B95e52511A6962);
+    address govActions = 0x1975B38656d65A5a57c7a41d66B054F429487e94;
 
     modifier onlyFork() {
         if (now < 1654052400) return; // abort for non fork execution
         _;
     }
 
-    function setUp() public onlyFork {
+    function setUp() public virtual onlyFork {
         hevm = Hevm(0x7109709ECfa91a80626fF3989D68f67F5b1DD12D);
 
         // cheat, minting FLX to this contract in order to propose/vote
@@ -92,17 +93,55 @@ contract SimulateProposalBase is DSTest {
 
     function _logData(address[] memory targets, bytes[] memory calldatas) internal {
         for (uint i; i < targets.length; ++i) {
-            emit log_named_address("target", targets[i]);
-            emit log_named_bytes("calldata", calldatas[i]);
+            _logData(targets[i], calldatas[i]);
         }
     }
 
     function _logData(address target, bytes memory data) internal {
-        address[] memory targets = new address[](1);
-        bytes[] memory calldatas = new bytes[](1);
+        emit log_named_address("target", target);
+        emit log_named_bytes("calldata", data);
+    }
 
-        targets[0] = target;
-        calldatas[0] = data;
-        _logData(targets, calldatas);
+    function _setCoinBalance(address to, uint256 amount) internal {
+        // Edge case - balance is already set for some reason
+        if (safeEngine.coinBalance(to) == amount) return;
+
+        for (int256 i = 0; i < 200; i++) {
+        // Scan the storage for the balance storage slot
+        bytes32 prevValue = hevm.load(address(safeEngine), keccak256(abi.encode(to, uint256(i))));
+        hevm.store(address(safeEngine), keccak256(abi.encode(to, uint256(i))), bytes32(amount));
+        if (safeEngine.coinBalance(to) == amount) {
+            // Found it
+            return;
+        } else {
+            // Keep going after restoring the original value
+            hevm.store(address(safeEngine), keccak256(abi.encode(to, uint256(i))), prevValue);
+        }
+        }
+        // We have failed if we reach here
+        assertTrue(false);
+    }
+
+    function _giveAuth(address _base, address target) internal {
+        AuthLike base = AuthLike(_base);
+
+        // Edge case - ward is already set
+        if (base.authorizedAccounts(target) == 1) return;
+
+        for (int256 i = 0; i < 100; i++) {
+        // Scan the storage for the authed account storage slot
+        bytes32 prevValue = hevm.load(address(base), keccak256(abi.encode(target, uint256(i))));
+        hevm.store(address(base), keccak256(abi.encode(target, uint256(i))), bytes32(uint256(1)));
+        if (base.authorizedAccounts(target) == 1) {
+            // Found it
+            return;
+        } else {
+            // Keep going after restoring the original value
+            hevm.store(address(base), keccak256(abi.encode(target, uint256(i))), prevValue);
+        }
+        }
+
+        // We have failed if we reach here
+        assertTrue(false);
     }
 }

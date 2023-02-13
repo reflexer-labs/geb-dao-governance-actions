@@ -38,9 +38,6 @@ contract Proposal22 {
         // optional: prevent locking of rewards. (modifyParams escrowPaused to 1)
         stakingOverlay.modifyParameters("escrowPaused", 1);
 
-        // set refill amount to 0 (so it stops paying the staking contract on every pool update)
-        // stakingRefill.modifyParameters("refillAmount", 1);
-
         // transfer all rewards to the dao treasury
         stakingRefill.transferTokenOut(0x7a97E2a5639f172b543d86164BDBC61B25F8c353, protocolToken.balanceOf(address(stakingRefill))); // GEB_DAO_TREASURY
 

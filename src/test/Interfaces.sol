@@ -550,6 +550,8 @@ abstract contract StakeRefillerLike {
   function lastRefillTime() public virtual view returns (uint);
   function refillDelay() public virtual view returns (uint);
   function refillDestination() public virtual view returns (address);
+  function rewardPerBlock() external virtual view returns (uint256);
+  function rewardCalculationDelay() external virtual view returns (uint256);
 }
 
 abstract contract RateSetterRelayerLike {

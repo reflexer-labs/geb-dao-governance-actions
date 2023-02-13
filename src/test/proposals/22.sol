@@ -11,6 +11,7 @@ abstract contract StakingLike {
 
 abstract contract StakingRefillLike {
     function transferTokenOut(address, uint256) external virtual;
+    function modifyParameters(bytes32, uint256) external virtual;
 }
 
 abstract contract ERC20Like {
@@ -20,7 +21,9 @@ abstract contract ERC20Like {
 contract Proposal22 {
     StakingLike constant stakingOverlay = StakingLike(0xcC8169c51D544726FB03bEfD87962cB681148aeA);
     StakingRefillLike constant stakingRefill = StakingRefillLike(0xc5fEcD1080d546F9494884E834b03D7AD208cc02);
+    StakingRefillLike constant stakingDripper = StakingRefillLike(0x03da3D5E0b13b6f0917FA9BC3d65B46229d7Ef47);
     ERC20Like constant protocolToken = ERC20Like(0x6243d8CEA23066d098a15582d81a598b4e8391F4);
+
 
     function execute() public {
         // toggleBypassAuctions - prevent auctions from starting
@@ -35,12 +38,23 @@ contract Proposal22 {
         // optional: prevent locking of rewards. (modifyParams escrowPaused to 1)
         stakingOverlay.modifyParameters("escrowPaused", 1);
 
+        // set refill amount to 0 (so it stops paying the staking contract on every pool update)
+        // stakingRefill.modifyParameters("refillAmount", 1);
+
         // transfer all rewards to the dao treasury
         stakingRefill.transferTokenOut(0x7a97E2a5639f172b543d86164BDBC61B25F8c353, protocolToken.balanceOf(address(stakingRefill))); // GEB_DAO_TREASURY
+
+        // transfer all rewards to the dao treasury
+        stakingDripper.transferTokenOut(0x7a97E2a5639f172b543d86164BDBC61B25F8c353, protocolToken.balanceOf(address(stakingDripper))); // GEB_DAO_TREASURY
+
+        // updating emission to 10FLX/day
+        stakingDripper.modifyParameters("rewardPerBlock", uint(10 ether) / 7200); // 7200 blocks per day, considering post merge 12s block time
+        stakingDripper.modifyParameters("rewardCalculationDelay", uint(-1));      // This is to prevent the emission rate from being upgraded by anyone
 
         // notes: What is not being done because params are ungoverned:
         // - exit delay cannot be changed, 3 week lock will be forced still
         // - cannot prevent other users from joining
+        // - rewards will keep on being paid at the current rate until the balance of the staking contract is depleted. It has no risk now, so it can be seen as a liquidity incenive for ETH/FLX.
     }
 }
 
@@ -103,6 +117,7 @@ contract Proposal22Test is SimulateProposalBase {
     DSTokenLike protocolToken = DSTokenLike(0x6243d8CEA23066d098a15582d81a598b4e8391F4);
     DSTokenLike stakedToken = DSTokenLike(0xd6F3768E62Ef92a9798E5A8cEdD2b78907cEceF9);
     StakeRefillerLike constant stakingRefill = StakeRefillerLike(0xc5fEcD1080d546F9494884E834b03D7AD208cc02);
+    StakeRefillerLike constant stakingDripper = StakeRefillerLike(0x03da3D5E0b13b6f0917FA9BC3d65B46229d7Ef47);
 
     function setUp() override public onlyFork {
         super.setUp();
@@ -123,6 +138,9 @@ contract Proposal22Test is SimulateProposalBase {
         assertEq(staking.forcedExit(), 1);
         assertEq(staking.escrowPaused(), 1);
         assertEq(protocolToken.balanceOf(address(stakingRefill)), 0);
+        assertEq(protocolToken.balanceOf(address(stakingDripper)), 0);
+        assertEq(stakingDripper.rewardPerBlock(), uint(10 ether) / 7200);
+        assertEq(stakingDripper.rewardCalculationDelay(), uint(-1));
     }
 
     function test_proposal_22_debt_auction() public onlyFork {

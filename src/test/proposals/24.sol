@@ -20,8 +20,6 @@ contract Proposal24Test is SimulateProposalBase {
             uint256(2), // 0 = Chainlink, 1 = Existing Tellor, 2 = Updated Tellor
             address(updatedTellorOracle)
         );
-
-        _logData(targets, calldatas);
        
         // propose / execute proposal
         _passProposal(targets, calldatas);

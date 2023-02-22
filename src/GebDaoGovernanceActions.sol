@@ -207,6 +207,6 @@ contract GebDaoGovernanceActions is CustomDataTypes{
     }
 
     function cancelChange(address target) external {
-        Setter(target).executeChange();
+        Setter(target).cancelChange();
     }
 }

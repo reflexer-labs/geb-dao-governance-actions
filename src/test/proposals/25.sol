@@ -3,8 +3,8 @@ pragma experimental ABIEncoderV2;
 
 import "../SimulateProposalBase.t.sol";
 
-contract Proposal24Test is SimulateProposalBase {
-    function test_proposal_24() public onlyFork {
+contract Proposal25Test is SimulateProposalBase {
+    function test_proposal_25() public onlyFork {
 
         address[] memory targets = new address[](1);
         bytes[] memory calldatas = new bytes[](1);
@@ -15,12 +15,12 @@ contract Proposal24Test is SimulateProposalBase {
 
         targets[0] = oracleOverlay;
         calldatas[0] = abi.encodeWithSignature(
-            "scheduleChangeTrustedOracle(uint8,uint256,address)",
+            "ScheduleChangeTrustedOracle(address,ChangeType,uint256,address)",
             uint8(0), // "ChangeType: Add"
             uint256(2), // 0 = Chainlink, 1 = Existing Tellor, 2 = Updated Tellor
             address(updatedTellorOracle)
         );
-       
+
         // propose / execute proposal
         _passProposal(targets, calldatas);
     }

@@ -1,6 +1,21 @@
 pragma solidity ^0.6.7;
 
-abstract contract Setter {
+contract CustomDataTypes {
+    enum ChangeType {
+        Add,
+        Remove,
+        Replace
+    }
+
+    struct Change {
+        ChangeType action;
+        uint256 executionTimestamp;
+        uint256 oracleIndex;
+        address newOracle;
+    }
+}
+
+abstract contract Setter is CustomDataTypes{
     function modifyParameters(bytes32, uint256) external virtual;
     function modifyParameters(bytes32, int256) external virtual;
     function modifyParameters(bytes32, address) external virtual;
@@ -24,12 +39,20 @@ abstract contract Setter {
     function createStream(address, uint256, address, uint256, uint256) external virtual;
     function cancelStream() external virtual;
     function mint() external virtual;
-    function _setVotingDelay(uint) external virtual;
+    function _setVotingDelay(uint256) external virtual;
+    function swapOracle(uint256) external virtual;
+    function ScheduleChangeTrustedOracle(
+        ChangeType,
+        uint256,
+        address
+    ) external virtual;
+    function executeChange() external virtual;
+    function cancelChange() external virtual;
 }
 
 // @notice Contract to be used by GEB DAO allowing changes in all RAI parameters that were not ungoerned
 // @dev Supposed to be delegatecalled into by the RAI Ungovernor
-contract GebDaoGovernanceActions {
+contract GebDaoGovernanceActions is CustomDataTypes{
 
     function modifyParameters(address target, bytes32 param, uint256 val) external {
         Setter(target).modifyParameters(param, val);
@@ -158,7 +181,32 @@ contract GebDaoGovernanceActions {
         Setter(target).mint();
     }
 
-    function _setVotingDelay(address target, uint newVotingDelay) external {
+    function _setVotingDelay(address target, uint256 newVotingDelay) external {
         Setter(target)._setVotingDelay(newVotingDelay);
+    }
+
+     function swapOracle(address target, uint256 oracleIndex) external {
+        Setter(target).swapOracle(oracleIndex);
+    }
+
+    function ScheduleChangeTrustedOracle(
+        address target,
+        ChangeType changeType,
+        uint256 oracleIndex,
+        address newOracle
+    ) external {
+        Setter(target).ScheduleChangeTrustedOracle(
+            changeType,
+            oracleIndex,
+            newOracle
+        );
+    }
+
+    function executeChange(address target) external {
+        Setter(target).executeChange();
+    }
+
+    function cancelChange(address target) external {
+        Setter(target).cancelChange();
     }
 }

@@ -15,8 +15,8 @@ contract Proposal25Test is SimulateProposalBase {
 
         targets[0] = govActions;
         calldatas[0] = abi.encodeWithSignature(
-            "ScheduleChangeTrustedOracle(address,ChangeType,uint256,address)",
-            address(oracleOverlay),
+            "ScheduleChangeTrustedOracle(address,uint8,uint256,address)",
+            oracleOverlay,
             uint8(0), // "ChangeType: Add"
             uint256(2), // 0 = Chainlink, 1 = Existing Tellor, 2 = Updated Tellor
             address(updatedTellorOracle)

@@ -187,6 +187,9 @@ contract GebDaoGovernanceActions is CustomDataTypes{
     }
 
     function _setVotingPeriod(address target, uint256 newVotingPeriod) external {
+        Setter(target)._setVotingPeriod(newVotingPeriod);
+    }
+
      function swapOracle(address target, uint256 oracleIndex) external {
         Setter(target).swapOracle(oracleIndex);
     }

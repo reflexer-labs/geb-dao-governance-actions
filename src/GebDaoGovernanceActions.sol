@@ -40,6 +40,7 @@ abstract contract Setter is CustomDataTypes{
     function cancelStream() external virtual;
     function mint() external virtual;
     function _setVotingDelay(uint256) external virtual;
+    function _setVotingPeriod(uint256) external virtual;
     function swapOracle(uint256) external virtual;
     function ScheduleChangeTrustedOracle(
         ChangeType,
@@ -185,6 +186,7 @@ contract GebDaoGovernanceActions is CustomDataTypes{
         Setter(target)._setVotingDelay(newVotingDelay);
     }
 
+    function _setVotingPeriod(address target, uint256 newVotingPeriod) external {
      function swapOracle(address target, uint256 oracleIndex) external {
         Setter(target).swapOracle(oracleIndex);
     }

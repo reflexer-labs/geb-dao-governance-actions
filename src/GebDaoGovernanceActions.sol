@@ -20,6 +20,7 @@ abstract contract Setter is CustomDataTypes{
     function modifyParameters(bytes32, int256) external virtual;
     function modifyParameters(bytes32, address) external virtual;
     function modifyParameters(bytes32, bytes32, address) external virtual;
+    function modifyParameters(bytes32, bytes32, uint256) external virtual;
     function modifyParameters(address, bytes32, uint) external virtual;
     function modifyParameters(address, bytes32, address) external virtual;
     function modifyParameters(address, bytes4, bytes32, uint256) external virtual;
@@ -68,6 +69,10 @@ contract GebDaoGovernanceActions is CustomDataTypes{
     }
 
     function modifyParameters(address target, bytes32 collateralType, bytes32 parameter, address data) external {
+        Setter(target).modifyParameters(collateralType, parameter, data);
+    }
+
+    function modifyParameters(address target, bytes32 collateralType, bytes32 parameter, uint256 data) public {
         Setter(target).modifyParameters(collateralType, parameter, data);
     }
 

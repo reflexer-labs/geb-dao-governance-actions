@@ -20,6 +20,7 @@ abstract contract Setter is CustomDataTypes{
     function modifyParameters(bytes32, int256) external virtual;
     function modifyParameters(bytes32, address) external virtual;
     function modifyParameters(bytes32, bytes32, address) external virtual;
+    function modifyParameters(bytes32, bytes32, uint256) external virtual;
     function modifyParameters(address, bytes32, uint) external virtual;
     function modifyParameters(address, bytes32, address) external virtual;
     function modifyParameters(address, bytes4, bytes32, uint256) external virtual;
@@ -40,6 +41,7 @@ abstract contract Setter is CustomDataTypes{
     function cancelStream() external virtual;
     function mint() external virtual;
     function _setVotingDelay(uint256) external virtual;
+    function _setVotingPeriod(uint256) external virtual;
     function swapOracle(uint256) external virtual;
     function ScheduleChangeTrustedOracle(
         ChangeType,
@@ -67,6 +69,10 @@ contract GebDaoGovernanceActions is CustomDataTypes{
     }
 
     function modifyParameters(address target, bytes32 collateralType, bytes32 parameter, address data) external {
+        Setter(target).modifyParameters(collateralType, parameter, data);
+    }
+
+    function modifyParameters(address target, bytes32 collateralType, bytes32 parameter, uint256 data) public {
         Setter(target).modifyParameters(collateralType, parameter, data);
     }
 
@@ -183,6 +189,10 @@ contract GebDaoGovernanceActions is CustomDataTypes{
 
     function _setVotingDelay(address target, uint256 newVotingDelay) external {
         Setter(target)._setVotingDelay(newVotingDelay);
+    }
+
+    function _setVotingPeriod(address target, uint256 newVotingPeriod) external {
+        Setter(target)._setVotingPeriod(newVotingPeriod);
     }
 
      function swapOracle(address target, uint256 oracleIndex) external {

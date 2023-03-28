@@ -16,7 +16,7 @@ contract SimulateProposalBase is DSTest {
     DSDelegateToken prot = DSDelegateToken(0x6243d8CEA23066d098a15582d81a598b4e8391F4);
     DSPause pause = DSPause(0x7ae91003722F29be9e53B09F469543dEFF8Af17d);
     SAFEEngineLike safeEngine = SAFEEngineLike(0xCC88a9d330da1133Df3A7bD823B95e52511A6962);
-    address govActions = 0x57bD967Ad1367DBC7D15873F45E407068d30Fa12;
+    address govActions = 0x1A82755a497b59B9aB70B6874905305CaCfDaeBA;
 
     modifier onlyFork() {
         if (now < 1654052400) return; // abort for non fork execution

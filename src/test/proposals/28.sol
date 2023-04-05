@@ -15,7 +15,7 @@ contract Proposal28Test is SimulateProposalBase {
         bytes[] memory calldatas = new bytes[](1);
 
         uint256 currentStabilityFee = 1000000000627937192491029810; // 2%
-        uint256 newStabilityFee = 1000000000156984298122757400; // .5%
+        uint256 newStabilityFee = 1000000000158153903837946258; // .5%
 
         address taxCollectorOverlay = 0x95f5B549E4FDdde4433Ab20Bae35F97F473f4A6F;
         address gebTaxCollector = 0xcDB05aEda142a1B0D6044C09C64e4226c1a281EB;

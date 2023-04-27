@@ -10,17 +10,16 @@ abstract contract FSMLike {
 
 abstract contract OSMLike {
     function updateResult() external virtual;
-    function getResultWithValidity() external view virtual returns (uint256, bool);
+    function lastUpdateTime() external view virtual returns (uint64);
 }
 
 contract Proposal30Test is SimulateProposalBase {
+
     function test_proposal_30() public onlyFork {
 
-        address gebFsm = 0x105b857583346E250FBD04a57ce0E491EB204BA3;
-        FSMLike fsm = FSMLike(gebFsm);
-
-        address gebOsm = 0xD4A0E3EC2A937E7CCa4A192756a8439A8BF4bA91;
-        OSMLike osm = OSMLike(gebOsm);
+        address medianizerEth = 0xE2e1Cf7C3A3959157A9b64cAF9675114396d451c;
+        FSMLike fsm = FSMLike(0x105b857583346E250FBD04a57ce0E491EB204BA3);
+        OSMLike osm = OSMLike(0xD4A0E3EC2A937E7CCa4A192756a8439A8BF4bA91);
 
         uint256 currentReimburseDelay = 3600;
         uint256 newReimburseDelay = 14400;
@@ -45,26 +44,23 @@ contract Proposal30Test is SimulateProposalBase {
         uint256 updatedReimburseDelay = fsm.reimburseDelay();
 
         assertEq(updatedReimburseDelay, newReimburseDelay);
+        
+        hevm.store(medianizerEth, bytes32(uint256(2)), bytes32(now));
+        osm.updateResult();
+        uint firstUpdateTime = osm.lastUpdateTime();
 
-        // Test we can still update the OSM hourly
+        hevm.warp(now + 5000);
+        hevm.store(medianizerEth, bytes32(uint256(2)), bytes32(now));
         osm.updateResult();
 
-        (uint256 firstFeedValue, bool firstFeedValueValidity) = osm.getResultWithValidity();
+        uint secondUpdateTime = osm.lastUpdateTime();
+        assertGt(secondUpdateTime, firstUpdateTime);
 
-        assertTrue(firstFeedValueValidity);
-
-        hevm.warp(now + 3600);
+        hevm.warp(now + 5000);
+        hevm.store(medianizerEth, bytes32(uint256(2)), bytes32(now));
         osm.updateResult();
 
-        (uint256 secondFeedValue, bool secondFeedValueValidity) = osm.getResultWithValidity();
-
-        assertTrue(secondFeedValueValidity);
-
-        hevm.warp(now + 3600);
-        osm.updateResult();
-
-        (uint256 thirdFeedValue, bool thirdFeedValueValidity) = osm.getResultWithValidity();
-
-        assertTrue(thirdFeedValueValidity);
+        uint thirdUpdateTime = osm.lastUpdateTime();
+        assertGt(thirdUpdateTime, secondUpdateTime);
     }
 }

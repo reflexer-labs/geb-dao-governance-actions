@@ -109,6 +109,34 @@ contract Proposal31Test is SimulateProposalBase {
         );
         assertEq(prot.balanceOf(address(distributor)), 929999999993000000000);
 
+        testStreamVault(
+            streamVault,
+            2999 ether,
+            0xCAFd432b7EcAfff352D92fcB81c60380d437E99D
+        );
+
         _logData(targets, calldatas);
+    }
+
+    function testStreamVault(address streamVaultAddress, uint256 deposit, address recipient) internal {
+        StreamVaultLike streamVault = StreamVaultLike(streamVaultAddress);
+        assertTrue(streamVault.streamId() != 0);
+        assertLt(prot.balanceOf(address(streamVault)), .00001 ether); // allow for some residual flx due to rounding
+
+        (
+            address sender,
+            address recipient_,
+            uint256 deposit_,
+            address token,
+            uint256 startTime,
+            uint256 stopTime,,
+        ) = SablierLike(streamVault.sablier()).getStream(streamVault.streamId());
+
+        assertEq(sender, address(streamVault));
+        assertEq(recipient_, recipient);
+        assertGt(deposit_, deposit);
+        assertEq(token, address(prot));
+        assertEq(startTime, now);
+        assertEq(stopTime, now + 3 * 52 weeks);
     }
 }

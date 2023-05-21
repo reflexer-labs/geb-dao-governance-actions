@@ -9,8 +9,7 @@ contract Proposal31Test is SimulateProposalBase {
                 0xb5Ed650eF207e051453B68A2138D7cb67CC85E41
             );
 
-        // TODO: replace this with the actual address 
-        address streamVault = 0x000000000000000000;
+        address streamVault = 0x3d3d2Bd7e8fdbadb26b83a4D9Ee7e3F202F819c0;
 
         // packing data for the proposal
         address[] memory targets = new address[](7);

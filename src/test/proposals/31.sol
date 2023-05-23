@@ -4,6 +4,13 @@ pragma experimental ABIEncoderV2;
 import "../SimulateProposalBase.t.sol";
 
 contract Proposal31Test is SimulateProposalBase {
+
+    uint duration = 3 * 52 weeks;
+    uint startDelay = 2 weeks;
+
+    uint streamStartTime = now + startDelay;
+    uint streamStopTime = streamStartTime + duration;
+
     function test_proposal_31() public onlyFork {
         MerkleDistributorFactoryLike merkleDistFactory = MerkleDistributorFactoryLike(
                 0xb5Ed650eF207e051453B68A2138D7cb67CC85E41
@@ -54,6 +61,7 @@ contract Proposal31Test is SimulateProposalBase {
         );
 
         uint duration = 3 * 52 weeks;
+        uint startDelay = 2 weeks;
 
         // Treasury transfer to stream
         targets[5] = govActions;
@@ -74,8 +82,8 @@ contract Proposal31Test is SimulateProposalBase {
             0xCAFd432b7EcAfff352D92fcB81c60380d437E99D,
             3000 ether - (3000 ether % duration),
             address(prot),
-            now,
-            now + duration
+            streamStartTime,
+            streamStopTime
         );
 
         // fetching previous balances
@@ -123,6 +131,9 @@ contract Proposal31Test is SimulateProposalBase {
         assertTrue(streamVault.streamId() != 0);
         assertLt(prot.balanceOf(address(streamVault)), .00001 ether); // allow for some residual flx due to rounding
 
+        uint duration = 3 * 52 weeks;
+        uint startDelay = 2 weeks;
+
         (
             address sender,
             address recipient_,
@@ -136,7 +147,7 @@ contract Proposal31Test is SimulateProposalBase {
         assertEq(recipient_, recipient);
         assertGt(deposit_, deposit);
         assertEq(token, address(prot));
-        assertEq(startTime, now);
-        assertEq(stopTime, now + 3 * 52 weeks);
+        assertEq(startTime, streamStartTime);
+        assertEq(stopTime, streamStopTime);
     }
 }

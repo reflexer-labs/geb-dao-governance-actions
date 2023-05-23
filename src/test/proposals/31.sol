@@ -67,9 +67,10 @@ contract Proposal31Test is SimulateProposalBase {
             3000 ether // Amount distributed
         );
 
-        targets[6] = streamVault;
+        targets[6] = govActions;
         calldatas[6] = abi.encodeWithSelector(
-            bytes4(keccak256("createStream(address,uint256,address,uint256,uint256)")),
+            bytes4(keccak256("createStream(address,address,uint256,address,uint256,uint256)")),
+            streamVault,
             0xCAFd432b7EcAfff352D92fcB81c60380d437E99D,
             3000 ether - (3000 ether % duration),
             address(prot),

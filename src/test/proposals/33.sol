@@ -21,7 +21,7 @@ contract Proposal33Test is SimulateProposalBase {
         ];
 
         uint[4] memory amounts = [
-            uint(801 ether),
+            uint(1281 ether),
             1201 ether,
             1601 ether,
             240 ether

@@ -21,10 +21,10 @@ contract Proposal35Test is SimulateProposalBase {
         ];
 
         uint[4] memory amounts = [
-            uint(1517 ether),
-            1124 ether,
-            1674 ether,
-            337 ether
+            uint(1652 ether),
+            1224 ether,
+            1823 ether,
+            367 ether
         ];
 
         // dao payroll

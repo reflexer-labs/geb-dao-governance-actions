@@ -15,77 +15,174 @@ contract CustomDataTypes {
     }
 }
 
-abstract contract Setter is CustomDataTypes{
+abstract contract Setter is CustomDataTypes {
     function modifyParameters(bytes32, uint256) external virtual;
+
     function modifyParameters(bytes32, int256) external virtual;
+
     function modifyParameters(bytes32, address) external virtual;
+
     function modifyParameters(bytes32, bytes32, address) external virtual;
+
     function modifyParameters(bytes32, bytes32, uint256) external virtual;
+
     function modifyParameters(address, bytes32, uint) external virtual;
+
     function modifyParameters(address, bytes32, address) external virtual;
-    function modifyParameters(address, bytes4, bytes32, uint256) external virtual;
+
+    function modifyParameters(
+        address,
+        bytes4,
+        bytes32,
+        uint256
+    ) external virtual;
+
     function connectSAFESaviour(address) external virtual;
+
     function disconnectSAFESaviour(address) external virtual;
+
     function transferERC20(address, address, uint256) external virtual;
+
     function restartRedemptionRate() external virtual;
+
     function changePriceSource(address) external virtual;
+
     function updateResult(uint256) external virtual;
-    function addFundingReceiver(address, bytes4, uint256, uint256, uint256) external virtual;
-    function addFundingReceiver(address, bytes4, uint256, uint256, uint256, uint256) external virtual;
+
+    function addFundingReceiver(
+        address,
+        bytes4,
+        uint256,
+        uint256,
+        uint256
+    ) external virtual;
+
+    function addFundingReceiver(
+        address,
+        bytes4,
+        uint256,
+        uint256,
+        uint256,
+        uint256
+    ) external virtual;
+
     function removeFundingReceiver(address, bytes4) external virtual;
+
     function addRewardAdjuster(address) external virtual;
+
     function removeRewardAdjuster(address) external virtual;
+
     function addFundedFunction(address, bytes4, uint256) external virtual;
+
     function removeFundedFunction(address, bytes4) external virtual;
-    function createStream(address, uint256, address, uint256, uint256) external virtual;
+
+    function createStream(
+        address,
+        uint256,
+        address,
+        uint256,
+        uint256
+    ) external virtual;
+
     function cancelStream() external virtual;
+
     function mint() external virtual;
+
     function _setVotingDelay(uint256) external virtual;
+
     function _setVotingPeriod(uint256) external virtual;
+
     function swapOracle(uint256) external virtual;
+
     function ScheduleChangeTrustedOracle(
         ChangeType,
         uint256,
         address
     ) external virtual;
+
     function executeChange() external virtual;
+
     function cancelChange() external virtual;
+
+    function addAuthorization(address) external virtual;
 }
 
 // @notice Contract to be used by GEB DAO allowing changes in all RAI parameters that were not ungoerned
 // @dev Supposed to be delegatecalled into by the RAI Ungovernor
-contract GebDaoGovernanceActions is CustomDataTypes{
-
-    function modifyParameters(address target, bytes32 param, uint256 val) external {
+contract GebDaoGovernanceActions is CustomDataTypes {
+    function modifyParameters(
+        address target,
+        bytes32 param,
+        uint256 val
+    ) external {
         Setter(target).modifyParameters(param, val);
     }
 
-    function modifyParameters(address target, bytes32 param, int256 val) external {
+    function modifyParameters(
+        address target,
+        bytes32 param,
+        int256 val
+    ) external {
         Setter(target).modifyParameters(param, val);
     }
 
-    function modifyParameters(address target, bytes32 param, address val) external {
+    function modifyParameters(
+        address target,
+        bytes32 param,
+        address val
+    ) external {
         Setter(target).modifyParameters(param, val);
     }
 
-    function modifyParameters(address target, bytes32 collateralType, bytes32 parameter, address data) external {
+    function modifyParameters(
+        address target,
+        bytes32 collateralType,
+        bytes32 parameter,
+        address data
+    ) external {
         Setter(target).modifyParameters(collateralType, parameter, data);
     }
 
-    function modifyParameters(address target, bytes32 collateralType, bytes32 parameter, uint256 data) public {
+    function modifyParameters(
+        address target,
+        bytes32 collateralType,
+        bytes32 parameter,
+        uint256 data
+    ) public {
         Setter(target).modifyParameters(collateralType, parameter, data);
     }
 
-    function modifyParameters(address target, address reimburser, bytes32 parameter, uint256 data) external {
+    function modifyParameters(
+        address target,
+        address reimburser,
+        bytes32 parameter,
+        uint256 data
+    ) external {
         Setter(target).modifyParameters(reimburser, parameter, data);
     }
 
-    function modifyParameters(address target, address reimburser, bytes32 parameter, address data) external {
+    function modifyParameters(
+        address target,
+        address reimburser,
+        bytes32 parameter,
+        address data
+    ) external {
         Setter(target).modifyParameters(reimburser, parameter, data);
     }
 
-    function modifyParameters(address target, address fundingTarget, bytes4 fundedFunction, bytes32 parameter, uint256 data) external {
-        Setter(target).modifyParameters(fundingTarget, fundedFunction, parameter, data);
+    function modifyParameters(
+        address target,
+        address fundingTarget,
+        bytes4 fundedFunction,
+        bytes32 parameter,
+        uint256 data
+    ) external {
+        Setter(target).modifyParameters(
+            fundingTarget,
+            fundedFunction,
+            parameter,
+            data
+        );
     }
 
     function connectSAFESaviour(address target, address saviour) external {
@@ -96,7 +193,12 @@ contract GebDaoGovernanceActions is CustomDataTypes{
         Setter(target).disconnectSAFESaviour(saviour);
     }
 
-    function transferERC20(address target, address token, address dst, uint256 amount) external {
+    function transferERC20(
+        address target,
+        address token,
+        address dst,
+        uint256 amount
+    ) external {
         Setter(target).transferERC20(token, dst, amount);
     }
 
@@ -115,7 +217,7 @@ contract GebDaoGovernanceActions is CustomDataTypes{
     function addFundingReceiver(
         address target,
         address receiver,
-        bytes4  targetFunctionSignature,
+        bytes4 targetFunctionSignature,
         uint256 updateDelay,
         uint256 gasAmountForExecution,
         uint256 fixedRewardMultiplier
@@ -132,7 +234,7 @@ contract GebDaoGovernanceActions is CustomDataTypes{
     function addFundingReceiver(
         address target,
         address receiver,
-        bytes4  targetFunctionSignature,
+        bytes4 targetFunctionSignature,
         uint256 updateDelay,
         uint256 gasAmountForExecution,
         uint256 baseRewardMultiplier,
@@ -148,8 +250,12 @@ contract GebDaoGovernanceActions is CustomDataTypes{
         );
     }
 
-    function removeFundingReceiver(address target, address receiver, bytes4  targetFunctionSignature) external {
-        Setter(target).removeFundingReceiver(receiver,targetFunctionSignature);
+    function removeFundingReceiver(
+        address target,
+        address receiver,
+        bytes4 targetFunctionSignature
+    ) external {
+        Setter(target).removeFundingReceiver(receiver, targetFunctionSignature);
     }
 
     function addRewardAdjuster(address target, address adjuster) external {
@@ -160,11 +266,24 @@ contract GebDaoGovernanceActions is CustomDataTypes{
         Setter(target).removeRewardAdjuster(adjuster);
     }
 
-    function addFundedFunction(address target, address targetContract, bytes4 targetFunction, uint256 latestExpectedCalls) external {
-        Setter(target).addFundedFunction(targetContract, targetFunction, latestExpectedCalls);
+    function addFundedFunction(
+        address target,
+        address targetContract,
+        bytes4 targetFunction,
+        uint256 latestExpectedCalls
+    ) external {
+        Setter(target).addFundedFunction(
+            targetContract,
+            targetFunction,
+            latestExpectedCalls
+        );
     }
 
-    function removeFundedFunction(address target, address targetContract, bytes4 targetFunction) external {
+    function removeFundedFunction(
+        address target,
+        address targetContract,
+        bytes4 targetFunction
+    ) external {
         Setter(target).removeFundedFunction(targetContract, targetFunction);
     }
 
@@ -176,7 +295,13 @@ contract GebDaoGovernanceActions is CustomDataTypes{
         uint256 startTime,
         uint256 stopTime
     ) external {
-        Setter(target).createStream(recipient, deposit, tokenAddress, startTime, stopTime);
+        Setter(target).createStream(
+            recipient,
+            deposit,
+            tokenAddress,
+            startTime,
+            stopTime
+        );
     }
 
     function cancelStream(address target) external {
@@ -191,11 +316,14 @@ contract GebDaoGovernanceActions is CustomDataTypes{
         Setter(target)._setVotingDelay(newVotingDelay);
     }
 
-    function _setVotingPeriod(address target, uint256 newVotingPeriod) external {
+    function _setVotingPeriod(
+        address target,
+        uint256 newVotingPeriod
+    ) external {
         Setter(target)._setVotingPeriod(newVotingPeriod);
     }
 
-     function swapOracle(address target, uint256 oracleIndex) external {
+    function swapOracle(address target, uint256 oracleIndex) external {
         Setter(target).swapOracle(oracleIndex);
     }
 
@@ -218,5 +346,9 @@ contract GebDaoGovernanceActions is CustomDataTypes{
 
     function cancelChange(address target) external {
         Setter(target).cancelChange();
+    }
+
+    function addAuthorization(address target, address account) external {
+        Setter(target).addAuthorization(account);
     }
 }

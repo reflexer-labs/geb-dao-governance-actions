@@ -12,11 +12,14 @@ import "./Interfaces.sol";
 contract SimulateProposalBase is DSTest {
     Hevm hevm;
 
-    GovernorBravo governor = GovernorBravo(0x7a6BBe7fDd793CC9ab7e0fc33605FCd2D19371E8);
-    DSDelegateToken prot = DSDelegateToken(0x6243d8CEA23066d098a15582d81a598b4e8391F4);
+    GovernorBravo governor =
+        GovernorBravo(0x7a6BBe7fDd793CC9ab7e0fc33605FCd2D19371E8);
+    DSDelegateToken prot =
+        DSDelegateToken(0x6243d8CEA23066d098a15582d81a598b4e8391F4);
     DSPause pause = DSPause(0x7ae91003722F29be9e53B09F469543dEFF8Af17d);
-    SAFEEngineLike safeEngine = SAFEEngineLike(0xCC88a9d330da1133Df3A7bD823B95e52511A6962);
-    address govActions = 0x1A82755a497b59B9aB70B6874905305CaCfDaeBA;
+    SAFEEngineLike safeEngine =
+        SAFEEngineLike(0xCC88a9d330da1133Df3A7bD823B95e52511A6962);
+    address govActions = 0x9acf6d28cB2F74702C53e4d39D8C4abF5416558a;
 
     modifier onlyFork() {
         if (now < 1654052400) return; // abort for non fork execution
@@ -31,39 +34,56 @@ contract SimulateProposalBase is DSTest {
         prot.delegate(address(this));
     }
 
-    function _giveTokens(
-        address token_,
-        address to,
-        uint256 amount
-    ) internal {
+    function _giveTokens(address token_, address to, uint256 amount) internal {
         DSDelegateToken token = DSDelegateToken(token_);
         // Edge case - balance is already set for some reason
         if (token.balanceOf(to) == amount) return;
 
         for (int256 i = 0; i < 200; i++) {
-        // Scan the storage for the balance storage slot
-        bytes32 prevValue = hevm.load(address(token), keccak256(abi.encode(to, uint256(i))));
-        hevm.store(address(token), keccak256(abi.encode(to, uint256(i))), bytes32(amount));
-        if (token.balanceOf(to) == amount) {
-            // Found it
-            return;
-        } else {
-            // Keep going after restoring the original value
-            hevm.store(address(token), keccak256(abi.encode(to, uint256(i))), prevValue);
-        }
+            // Scan the storage for the balance storage slot
+            bytes32 prevValue = hevm.load(
+                address(token),
+                keccak256(abi.encode(to, uint256(i)))
+            );
+            hevm.store(
+                address(token),
+                keccak256(abi.encode(to, uint256(i))),
+                bytes32(amount)
+            );
+            if (token.balanceOf(to) == amount) {
+                // Found it
+                return;
+            } else {
+                // Keep going after restoring the original value
+                hevm.store(
+                    address(token),
+                    keccak256(abi.encode(to, uint256(i))),
+                    prevValue
+                );
+            }
         }
 
         // We have failed if we reach here
         assertTrue(false);
     }
 
-
-    function _passProposal(address[] memory targets, bytes[] memory calldatas) internal {
+    function _passProposal(
+        address[] memory targets,
+        bytes[] memory calldatas
+    ) internal {
         hevm.roll(block.number + 1);
 
-        uint proposalId = governor.propose(targets, new uint[](1), new string[](1), calldatas, "test-proposal");
+        uint proposalId = governor.propose(
+            targets,
+            new uint[](1),
+            new string[](1),
+            calldatas,
+            "test-proposal"
+        );
 
-        hevm.roll(block.number + governor.votingDelay() + governor.votingPeriod()); // very last block
+        hevm.roll(
+            block.number + governor.votingDelay() + governor.votingPeriod()
+        ); // very last block
 
         governor.castVote(proposalId, 1);
         hevm.roll(block.number + 1);
@@ -72,11 +92,9 @@ contract SimulateProposalBase is DSTest {
         governor.execute(proposalId);
 
         {
-            (
-                ,,,,,,,,
-                bool canceled,
-                bool executed
-            ) = governor.proposals(proposalId);
+            (, , , , , , , , bool canceled, bool executed) = governor.proposals(
+                proposalId
+            );
             assertTrue(!canceled);
             assertTrue(executed);
         }
@@ -91,7 +109,10 @@ contract SimulateProposalBase is DSTest {
         _passProposal(targets, calldatas);
     }
 
-    function _logData(address[] memory targets, bytes[] memory calldatas) internal {
+    function _logData(
+        address[] memory targets,
+        bytes[] memory calldatas
+    ) internal {
         for (uint i; i < targets.length; ++i) {
             _logData(targets[i], calldatas[i]);
         }
@@ -107,16 +128,27 @@ contract SimulateProposalBase is DSTest {
         if (safeEngine.coinBalance(to) == amount) return;
 
         for (int256 i = 0; i < 200; i++) {
-        // Scan the storage for the balance storage slot
-        bytes32 prevValue = hevm.load(address(safeEngine), keccak256(abi.encode(to, uint256(i))));
-        hevm.store(address(safeEngine), keccak256(abi.encode(to, uint256(i))), bytes32(amount));
-        if (safeEngine.coinBalance(to) == amount) {
-            // Found it
-            return;
-        } else {
-            // Keep going after restoring the original value
-            hevm.store(address(safeEngine), keccak256(abi.encode(to, uint256(i))), prevValue);
-        }
+            // Scan the storage for the balance storage slot
+            bytes32 prevValue = hevm.load(
+                address(safeEngine),
+                keccak256(abi.encode(to, uint256(i)))
+            );
+            hevm.store(
+                address(safeEngine),
+                keccak256(abi.encode(to, uint256(i))),
+                bytes32(amount)
+            );
+            if (safeEngine.coinBalance(to) == amount) {
+                // Found it
+                return;
+            } else {
+                // Keep going after restoring the original value
+                hevm.store(
+                    address(safeEngine),
+                    keccak256(abi.encode(to, uint256(i))),
+                    prevValue
+                );
+            }
         }
         // We have failed if we reach here
         assertTrue(false);
@@ -129,16 +161,27 @@ contract SimulateProposalBase is DSTest {
         if (base.authorizedAccounts(target) == 1) return;
 
         for (int256 i = 0; i < 100; i++) {
-        // Scan the storage for the authed account storage slot
-        bytes32 prevValue = hevm.load(address(base), keccak256(abi.encode(target, uint256(i))));
-        hevm.store(address(base), keccak256(abi.encode(target, uint256(i))), bytes32(uint256(1)));
-        if (base.authorizedAccounts(target) == 1) {
-            // Found it
-            return;
-        } else {
-            // Keep going after restoring the original value
-            hevm.store(address(base), keccak256(abi.encode(target, uint256(i))), prevValue);
-        }
+            // Scan the storage for the authed account storage slot
+            bytes32 prevValue = hevm.load(
+                address(base),
+                keccak256(abi.encode(target, uint256(i)))
+            );
+            hevm.store(
+                address(base),
+                keccak256(abi.encode(target, uint256(i))),
+                bytes32(uint256(1))
+            );
+            if (base.authorizedAccounts(target) == 1) {
+                // Found it
+                return;
+            } else {
+                // Keep going after restoring the original value
+                hevm.store(
+                    address(base),
+                    keccak256(abi.encode(target, uint256(i))),
+                    prevValue
+                );
+            }
         }
 
         // We have failed if we reach here

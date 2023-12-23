@@ -30,8 +30,8 @@ contract Proposal40Test is SimulateProposalBase {
             );
 
         // packing data for the proposal
-        address[] memory targets = new address[](9);
-        bytes[] memory calldatas = new bytes[](9);
+        address[] memory targets = new address[](8);
+        bytes[] memory calldatas = new bytes[](8);
 
         address[3] memory receivers = [
             address(0x0a453F46f8AE9a99b2B901A26b53e92BE6c3c43E),
@@ -133,35 +133,15 @@ contract Proposal40Test is SimulateProposalBase {
 
         // **********
         //
-        // 5. Update RAI orcl on collateral auction house eth-a
-        //
-        // **********
-        CollateralAuctionHouseLike auctionHouse = CollateralAuctionHouseLike(
-            0x7fFdF1Dfef2bfeE32054C8E922959fB235679aDE
-        );
-        assertEq(
-            auctionHouse.systemCoinOracle(),
-            0x0000000000000000000000000000000000000000
-        );
-        targets[6] = govActions;
-        calldatas[6] = abi.encodeWithSelector(
-            bytes4(keccak256("modifyParameters(address,bytes32,address)")),
-            0x9a1667B2577A86F0B938E625D65A229430A7c781, // auction house overlay
-            0x73797374656d436f696e4f7261636c6500000000000000000000000000000000, // "systemCoinOracle" param
-            newOracle
-        );
-
-        // **********
-        //
-        // 6. Update RAI orcl on eth uni v2 pool saviour
+        // 5. Update RAI orcl on eth uni v2 pool saviour
         //
         // **********
         PoolSaviourLike poolSaviour = PoolSaviourLike(
             0xA9402De5ce3F1E03Be28871b914F77A4dd5e4364
         );
         assertEq(poolSaviour.systemCoinOrcl(), oldOracle);
-        targets[7] = govActions;
-        calldatas[7] = abi.encodeWithSelector(
+        targets[6] = govActions;
+        calldatas[6] = abi.encodeWithSelector(
             bytes4(keccak256("modifyParameters(address,bytes32,address)")),
             address(poolSaviour), // eth uni v2 pool saviour
             0x73797374656d436f696e4f72636c000000000000000000000000000000000000, // "systemCoinOracle" param
@@ -170,15 +150,15 @@ contract Proposal40Test is SimulateProposalBase {
 
         // **********
         //
-        // 7. Update RAI orcle on debt auction intitial param setter
+        // 6. Update RAI orcle on debt auction intitial param setter
         //
         // **********
         DebtAuctionInitialParameterSetterLike debtAuctionParamSetter = DebtAuctionInitialParameterSetterLike(
                 0x7df2d51e69aA58B69C3dF18D75b8e9ACc3C1B04E
             );
         assertEq(debtAuctionParamSetter.systemCoinOrcl(), oldOracle);
-        targets[8] = govActions;
-        calldatas[8] = abi.encodeWithSelector(
+        targets[7] = govActions;
+        calldatas[7] = abi.encodeWithSelector(
             bytes4(keccak256("modifyParameters(address,bytes32,address)")),
             0xd3aE3208b6Fc3ec3091923bD8570151a6a4a96a0, // debt auction intitial param setter overlay
             0x73797374656d436f696e4f72636c000000000000000000000000000000000000, // "systemCoinOracle" param
@@ -195,11 +175,9 @@ contract Proposal40Test is SimulateProposalBase {
         );
         // 2. Testing update RAI orcle on rate setter
         assertEq(piRateSetter.orcl(), newOracle);
-        // 3. Testing update RAI oracle on collateral auction house eth-a
-        assertEq(auctionHouse.systemCoinOracle(), newOracle);
-        // 4. Testing update RAI oracle on eth uni v2 pool saviour
+        // 3. Testing update RAI oracle on eth uni v2 pool saviour
         assertEq(poolSaviour.systemCoinOrcl(), newOracle);
-        // 5. Testing update RAI oracle on debt auction intitial param setter
+        // 4. Testing update RAI oracle on debt auction intitial param setter
         assertEq(debtAuctionParamSetter.systemCoinOrcl(), newOracle);
 
         // testing balances

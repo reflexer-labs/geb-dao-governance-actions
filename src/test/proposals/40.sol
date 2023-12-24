@@ -39,7 +39,7 @@ contract Proposal40Test is SimulateProposalBase {
             0xCAFd432b7EcAfff352D92fcB81c60380d437E99D
         ];
 
-        uint[3] memory amounts = [uint(1313 ether), 1313 ether, 1898 ether];
+        uint[3] memory amounts = [uint(1410 ether), 1410 ether, 2057 ether];
 
         // dao payroll
         for (uint i; i < receivers.length; ++i) {

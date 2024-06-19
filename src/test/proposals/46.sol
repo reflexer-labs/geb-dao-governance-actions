@@ -3,7 +3,7 @@ pragma experimental ABIEncoderV2;
 
 import "../SimulateProposalBase.t.sol";
 
-contract Proposal45Test is SimulateProposalBase {
+contract Proposal46Test is SimulateProposalBase {
     function test_proposal_45() public onlyFork {
         MerkleDistributorFactoryLike merkleDistFactory = MerkleDistributorFactoryLike(
                 0xb5Ed650eF207e051453B68A2138D7cb67CC85E41
@@ -19,7 +19,7 @@ contract Proposal45Test is SimulateProposalBase {
             0xCAFd432b7EcAfff352D92fcB81c60380d437E99D
         ];
 
-        uint[3] memory amounts = [uint(2632 ether), 2632 ether, 2632 ether];
+        uint[3] memory amounts = [uint(2412 ether), 2412 ether, 2412 ether];
 
         // dao payroll
         for (uint i; i < receivers.length; ++i) {
@@ -40,8 +40,8 @@ contract Proposal45Test is SimulateProposalBase {
         calldatas[3] = abi.encodeWithSignature(
             "deployDistributorAndSendTokens(address,bytes32,uint256)",
             0xb5Ed650eF207e051453B68A2138D7cb67CC85E41, // Merkle distributor factory
-            0x3db033eb8377e79e78493e86a05696961c840c753b1911e49cd3d5023c2386ca, // Merkle root
-            899999999999000000000 // Amount distributed - 0x30ca024f983ff53600
+            0x126dd0026ce9b41346c35938b89eac6891703271f915fe699de54c573788f7ca, // Merkle root
+            930000000000000000000 // Amount distributed - 0x30ca024f983ff53600
         );
 
         // fetching previous balances
@@ -71,9 +71,9 @@ contract Proposal45Test is SimulateProposalBase {
 
         assertEq(
             distributor.merkleRoot(),
-            0x3db033eb8377e79e78493e86a05696961c840c753b1911e49cd3d5023c2386ca
+            0x126dd0026ce9b41346c35938b89eac6891703271f915fe699de54c573788f7ca
         );
-        assertEq(prot.balanceOf(address(distributor)), 899999999999000000000);
+        assertEq(prot.balanceOf(address(distributor)), 930000000000000000000);
 
         _logData(targets, calldatas);
     }

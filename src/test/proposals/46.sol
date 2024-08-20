@@ -4,7 +4,7 @@ pragma experimental ABIEncoderV2;
 import "../SimulateProposalBase.t.sol";
 
 contract Proposal46Test is SimulateProposalBase {
-    function test_proposal_45() public onlyFork {
+    function test_proposal_46() public onlyFork {
         MerkleDistributorFactoryLike merkleDistFactory = MerkleDistributorFactoryLike(
                 0xb5Ed650eF207e051453B68A2138D7cb67CC85E41
             );

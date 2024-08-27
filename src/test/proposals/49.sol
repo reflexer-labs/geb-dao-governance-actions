@@ -17,13 +17,8 @@ contract Proposal49Test is SimulateProposalBase {
         // HAI Controller = https://optimistic.etherscan.io/address/0x6f9aeC3c0DF4DF7A0Da66453a38B8C767972f609
 
         // Current RAI values
-        // KP = sg = 222002205862
         // KI = ag = 16442
-        // decay = pscl = 999999711200000000000000000
-
-        // Current RAI values
-        // KI = ag = 222002205862
-        // KP = sg = 16442
+        // KP = sg = 222002205862
         // decay = pscl = 999999711200000000000000000
 
         // Currrent HAI values

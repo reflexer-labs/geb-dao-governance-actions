@@ -3,8 +3,8 @@ pragma experimental ABIEncoderV2;
 
 import "../SimulateProposalBase.t.sol";
 
-contract Proposal53Test is SimulateProposalBase {
-    function test_proposal_53() public onlyFork {
+contract Proposal54Test is SimulateProposalBase {
+    function test_proposal_54() public onlyFork {
         MerkleDistributorFactoryLike merkleDistFactory =
             MerkleDistributorFactoryLike(0xb5Ed650eF207e051453B68A2138D7cb67CC85E41);
 
@@ -18,7 +18,7 @@ contract Proposal53Test is SimulateProposalBase {
             0xCAFd432b7EcAfff352D92fcB81c60380d437E99D
         ];
 
-        uint256[3] memory amounts = [uint256(3846 ether), 3846 ether, 769 ether];
+        uint256[3] memory amounts = [uint256(1800 ether), 1800 ether, 360 ether];
 
         // dao payroll
         for (uint256 i; i < receivers.length; ++i) {
@@ -37,8 +37,8 @@ contract Proposal53Test is SimulateProposalBase {
         calldatas[3] = abi.encodeWithSignature(
             "deployDistributorAndSendTokens(address,bytes32,uint256)",
             0xb5Ed650eF207e051453B68A2138D7cb67CC85E41, // Merkle distributor factory
-            0x34ad073d87e8d089ff76be00172d4e10d1ead9cd58a4eb12723650c3881cdb9e, // Merkle root
-            930000000000000000000 // Amount distributed - 0x326a57b8a619480000
+            0x4fbe0c54a260d43777407a5ef6e9d569fec7f5cfe1d85e99c444d019246cde9e, // Merkle root
+            900000000000000000000 // Amount distributed - 0x30ca024f987b900000
         );
 
         // fetching previous balances
@@ -61,8 +61,8 @@ contract Proposal53Test is SimulateProposalBase {
         assertEq(savedNonce + 1, merkleDistFactory.nonce());
         MerkleDistributorLike distributor = MerkleDistributorLike(merkleDistFactory.distributors(savedNonce + 1));
 
-        assertEq(distributor.merkleRoot(), 0x34ad073d87e8d089ff76be00172d4e10d1ead9cd58a4eb12723650c3881cdb9e);
-        assertEq(prot.balanceOf(address(distributor)), 930000000000000000000);
+        assertEq(distributor.merkleRoot(), 0x4fbe0c54a260d43777407a5ef6e9d569fec7f5cfe1d85e99c444d019246cde9e);
+        assertEq(prot.balanceOf(address(distributor)), 900000000000000000000);
 
         _logData(targets, calldatas);
     }
